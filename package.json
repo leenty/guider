@@ -1,0 +1,22 @@
+{
+  "name": "yes",
+  "version": "1.0.0",
+  "description": "the guide component for web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leenty/guider.git"
+  },
+  "keywords": [
+    "guider"
+  ],
+  "author": "leenty@qq.com",
+  "license": "SEE LICENSE IN FILE LICENSE",
+  "bugs": {
+    "url": "https://github.com/leenty/guider/issues"
+  },
+  "homepage": "https://github.com/leenty/guider#readme"
+}
