@@ -37,6 +37,8 @@ class Guider extends Component {
     })),
     // 销毁事件(流程结束)
     onDestroy: PropTypes.func,
+    // 引导完成事件
+    onComplete: PropTypes.func,
     // 高亮元素的过度动画
     showTransition: PropTypes.bool,
     className: PropTypes.string,
@@ -45,6 +47,8 @@ class Guider extends Component {
   static defaultProps = {
     steps: [],
     showTransition: false,
+    onDestroy() {},
+    onComplete() {},
   }
 
   state = {
@@ -152,23 +156,29 @@ class Guider extends Component {
     }
   }
 
+  getBoundingClientRect(target) {
+    const info = target.getBoundingClientRect()
+    return {
+      width: info.width || 0,
+      height: info.height || 0,
+      x: info.x || info.left || 0,
+      y: info.y || info.top || 0,
+      top: info.top || 0,
+      bottom: info.bottom || 0,
+      left: info.left || 0,
+      right: info.right || 0,
+      // zIndex: window.getComputedStyle(this.target).zIndex
+    }
+  }
+
   // 获取目标元素信息
   getTargetInfo(stepProps) {
     const target = document.querySelector(stepProps.selector)
     this.target = target || document.createElement('div')
-    const targetInfo = this.target.getBoundingClientRect()
+    const targetInfo = this.getBoundingClientRect(this.target)
+    // console.log('targetInfo:', targetInfo)
     this.addTargetListener(stepProps)
-    return {
-      width: targetInfo.width,
-      height: targetInfo.height,
-      x: targetInfo.x,
-      y: targetInfo.y,
-      top: targetInfo.top,
-      bottom: targetInfo.bottom,
-      left: targetInfo.left,
-      right: targetInfo.right,
-      // zIndex: window.getComputedStyle(this.target).zIndex
-    }
+    return targetInfo
   }
 
   // 添加目标高亮元素的监听
@@ -291,15 +301,11 @@ class Guider extends Component {
 
     if (stepProps.maskTarget) {
       // 有遮罩目标，则值遮罩目标区域
-      const maskTargetInfo = stepProps.maskTarget.getBoundingClientRect()
-      maskAreaInfo.x = maskTargetInfo.x
-      maskAreaInfo.y = maskTargetInfo.y
-      maskAreaInfo.width = maskTargetInfo.width
-      maskAreaInfo.height = maskTargetInfo.height
-      maskAreaInfo.top = maskTargetInfo.top
-      maskAreaInfo.bottom = maskTargetInfo.bottom
-      maskAreaInfo.left = maskTargetInfo.left
-      maskAreaInfo.right = maskTargetInfo.right
+      const maskTargetInfo = this.getBoundingClientRect(stepProps.maskTarget)
+      maskAreaInfo = {
+        ...maskAreaInfo,
+        ...maskTargetInfo,
+      }
     }
     if (stepProps.maskTarget === null) {
       // 遮罩目标为空，表示不希望产生遮罩，一切置0
@@ -322,6 +328,7 @@ class Guider extends Component {
         ...stepProps.maskAreaCollaborator(maskAreaInfo, screen),
       }
     }
+    // console.log('maskAreaInfo:', maskAreaInfo)
     return maskAreaInfo
   }
 
@@ -342,6 +349,8 @@ class Guider extends Component {
     const next = () => setTimeout(() => {
       // 放入异步队列，能保证目标组件完成渲染
       if (stepIndex > totalStepCount) {
+        // 调用完成回调
+        this.props.onComplete()
         // 流程走完，执行销毁
         this.destroy()
       } else {
@@ -427,7 +436,10 @@ class Guider extends Component {
     </Fragment>
   }
 
-  static create({steps = [], callback, className = '', onDestroy}) {
+  static create({
+    steps = [], callback, className = '',
+    onDestroy, onComplete = () => {},
+  }) {
     const div = document.createElement('div')
     let called = false
     let isDestroy = false
@@ -489,7 +501,15 @@ class Guider extends Component {
         },
       });
     }
-    ReactDOM.render(<Guider steps={steps} className={className} ref={ref} onDestroy={rootDestroy}/>, div)
+    ReactDOM.render(
+      <Guider
+        steps={steps}
+        className={className}
+        ref={ref}
+        onDestroy={rootDestroy}
+        onComplete={onComplete}
+      />, div
+    )
   }
 }
 
