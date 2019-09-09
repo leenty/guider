@@ -4,6 +4,7 @@
   "description": "the guide component for web app",
   "main": "index.js",
   "scripts": {
+    "start": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/leenty/guider/issues"
   },
-  "homepage": "https://github.com/leenty/guider#readme"
+  "homepage": "https://github.com/leenty/guider#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "rollup": "^1.20.3",
+    "rollup-plugin-babel": "^4.3.3"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
+  }
 }

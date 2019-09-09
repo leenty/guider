@@ -4,52 +4,52 @@ import ReactDOM from 'react-dom'
 import c from 'classnames'
 
 class Guider extends Component {
-  static propTypes = {
-    // 流程数组，必传
-    steps: PropTypes.arrayOf(PropTypes.shape({
-      // 选择器
-      selector: PropTypes.string,
-      // 遮罩颜色
-      maskColor: PropTypes.string,
-      // 遮罩点击后是否关闭
-      maskClosable: PropTypes.bool,
-      // 遮罩点击事件 参数：无; 有此函数，会取代默认函数处理遮罩点击事件
-      onMaskClick: PropTypes.func,
-      // 高亮块的样式
-      targetStyle: PropTypes.object,
-      // z-index
-      zIndex: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
-      // 遮罩区域协作计算函数，一个函数，参与并影响遮罩区域的计算及结果 参数：maskAreaInfo, screen
-      maskAreaCollaborator: PropTypes.func,
-      // 遮罩目标元素,不传默认全屏,传递null则不产生遮罩
-      maskTarget: PropTypes.any,
-      // 介绍组件生成器 参数：targetInfo, maskAreaInfo, screen, stepIndex
-      introElementCreater: PropTypes.func,
-      // 目标元素点击事件 参数：无
-      targetClickHandle: PropTypes.func,
-      // 每个流程步骤开始时触发 参数：next[func: promise], stepIndex
-      onStepStart: PropTypes.func,
-      // 每个流程步骤结束时触发 参数：next[func: promise], stepIndex
-      onStepEnd: PropTypes.func,
-    })),
-    // 销毁事件(流程结束)
-    onDestroy: PropTypes.func,
-    // 引导完成事件
-    onComplete: PropTypes.func,
-    // 高亮元素的过度动画
-    showTransition: PropTypes.bool,
-    className: PropTypes.string,
-  };
+  // static propTypes = {
+  //   // 流程数组，必传
+  //   steps: PropTypes.arrayOf(PropTypes.shape({
+  //     // 选择器
+  //     selector: PropTypes.string,
+  //     // 遮罩颜色
+  //     maskColor: PropTypes.string,
+  //     // 遮罩点击后是否关闭
+  //     maskClosable: PropTypes.bool,
+  //     // 遮罩点击事件 参数：无; 有此函数，会取代默认函数处理遮罩点击事件
+  //     onMaskClick: PropTypes.func,
+  //     // 高亮块的样式
+  //     targetStyle: PropTypes.object,
+  //     // z-index
+  //     zIndex: PropTypes.oneOfType([
+  //       PropTypes.string,
+  //       PropTypes.number,
+  //     ]),
+  //     // 遮罩区域协作计算函数，一个函数，参与并影响遮罩区域的计算及结果 参数：maskAreaInfo, screen
+  //     maskAreaCollaborator: PropTypes.func,
+  //     // 遮罩目标元素,不传默认全屏,传递null则不产生遮罩
+  //     maskTarget: PropTypes.any,
+  //     // 介绍组件生成器 参数：targetInfo, maskAreaInfo, screen, stepIndex
+  //     introElementCreater: PropTypes.func,
+  //     // 目标元素点击事件 参数：无
+  //     targetClickHandle: PropTypes.func,
+  //     // 每个流程步骤开始时触发 参数：next[func: promise], stepIndex
+  //     onStepStart: PropTypes.func,
+  //     // 每个流程步骤结束时触发 参数：next[func: promise], stepIndex
+  //     onStepEnd: PropTypes.func,
+  //   })),
+  //   // 销毁事件(流程结束)
+  //   onDestroy: PropTypes.func,
+  //   // 引导完成事件
+  //   onComplete: PropTypes.func,
+  //   // 高亮元素的过度动画
+  //   showTransition: PropTypes.bool,
+  //   className: PropTypes.string,
+  // };
 
-  static defaultProps = {
-    steps: [],
-    showTransition: false,
-    onDestroy() {},
-    onComplete() {},
-  }
+  // static defaultProps = {
+  //   steps: [],
+  //   showTransition: false,
+  //   onDestroy() {},
+  //   onComplete() {},
+  // }
 
   state = {
     stepIndex: 0, // 流程步骤进度
