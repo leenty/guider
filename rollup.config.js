@@ -6,8 +6,9 @@ export default {
     {
       file: './dist/guider-es.js',
       format: 'es',
-      banner: '// leenty.com',
-      footer: '// leenty@qq.com'
+      name: 'customGuider',
+      banner: '// author: leenty mail: leenty@qq.com \n',
+      // footer: '// leenty@qq.com'
     }
     // , {
     //   file: './dist/guider-cjs.js',

@@ -1,8 +1,8 @@
 {
-  "name": "guider",
+  "name": "custom-guider",
   "version": "1.0.0",
   "description": "the guide component for web app",
-  "main": "index.js",
+  "main": "dist/guider-es.js",
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,11 @@
   },
   "keywords": [
     "guider",
+    "custom",
     "customize"
+  ],
+  "files": [
+    "dist"
   ],
   "author": "leenty@qq.com",
   "license": "SEE LICENSE IN FILE LICENSE",
